@@ -3,7 +3,7 @@
 
 const proc = require("node:process");
 const fs   = require("node:fs");
-const {color, bright} = require("./.jed/color.js");
+const {color, bright} = require("./lib/color.js");
 
 parseArgs();
 

@@ -2,8 +2,14 @@
 
 Jed is a lab project for creatin an ed-like editor.o
 
-## Usage
 
+## Installation
+
+  - clone Git repo `git clone git@github.com:PopovMP/jed.git`
+  - make symbolic link `ln -s ~/jed/index.js ~/bin/jed`
+
+
+## Usage
 
 Edit an unnamed file
 ```shell
