@@ -1,0 +1,32 @@
+{
+  "name": "jed",
+  "version": "0.0.1",
+  "description": "Ed-like editor in JavaScript",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PopovMP/jed.git"
+  },
+  "keywords": [
+    "ed",
+    "editor",
+    "JavaScript",
+    "terminal",
+    "text",
+    "editor",
+    "text",
+    "jed"
+  ],
+  "author": "Popov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PopovMP/jed/issues"
+  },
+  "homepage": "https://github.com/PopovMP/jed#readme"
+}
