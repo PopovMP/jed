@@ -3,16 +3,17 @@
 
 const proc = require("node:process");
 const fs   = require("node:fs");
+
 const {state}     = require("./lib/state.js");
 const {brightRed} = require("./lib/color.js");
 const {parseArgs} = require("./lib/arg.js");
 
-const argsDto = parseArgs(proc.argv);
-state.prompt   = argsDto.prompt;
-state.filename = argsDto.filename;
+parseArgs(proc.argv);
 
 if (state.filename !== "") {
     readFile(state.filename);
+} else {
+    main();
 }
 
 function readFile(filename) {
@@ -29,8 +30,8 @@ function fs_readfile_ready(err, content) {
     main();
 }
 
-
 function main() {
-    console.log(state.prompt + "Ready!");
+    const prompt = state.isPrompt ? state.promptTxt : "";
+    console.log(prompt + "Ready!");
 }
 
