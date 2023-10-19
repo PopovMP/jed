@@ -3,16 +3,9 @@
 
 const proc = require("node:process");
 const fs   = require("node:fs");
+const {state}     = require("./lib/state.js");
 const {brightRed} = require("./lib/color.js");
 const {parseArgs} = require("./lib/arg.js");
-
-const state = {
-    prompt  : "",
-    filename: "",
-    mode    : "cmd",
-    curLine : 0,
-    lines   : [],
-};
 
 const argsDto = parseArgs(proc.argv);
 state.prompt   = argsDto.prompt;
