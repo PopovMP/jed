@@ -6,7 +6,7 @@ const readline = require("node:readline");
 const os       = require("node:os");
 
 const {state} = require("./lib/state.js");
-const {color} = require("./lib/color.js");
+const {brightRed, color} = require("./lib/color.js");
 const {parseArgs}           = require("./lib/arg.js");
 const {parseInput}          = require("./lib/parser.js");
 const {readFile, writeFile} = require("./lib/io.js");
@@ -29,7 +29,7 @@ function main() {
     render();
 
     const filename = `${color.Blue}${state.filename}${color.Reset}`;
-    const prompt   = `${filename} ${state.lines.length} ${state.curLine} > `;
+    const prompt   = `${filename} ${state.lines.length} ${state.curLine+1} > `;
     rl.setPrompt(prompt);
     rl.prompt(false);
 }
@@ -47,8 +47,34 @@ function rl_on_line(rowInput) {
     if (inputDto.command === "w") {
         const content = state.lines.join(os.EOL);
         writeFile(state.filename, content, main);
+        main();
         return;
     }
+
+    // Delete lines
+    if (inputDto.command === "d") {
+        const from  = inputDto.range[0];
+        const to    = inputDto.range[1];
+        const count = to - from + 1;
+
+        if (from > state.lines.length - 1 || from < 0 || count < 1 ||
+            from + count > state.lines.length + 1) {
+            console.error(brightRed(`"d" given invalid range: ${from+1} - ${to+1}`));
+        } else {
+            state.lines.splice(from, count);
+            state.curLine = Math.min(from, state.lines.length - 1);
+        }
+
+        main();
+        return;
+    }
+
+    if (inputDto.command === "change-current-line") {
+        state.curLine = inputDto.range[0];
+        main();
+        return;
+    }
+
 
     main();
 }
