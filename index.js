@@ -8,6 +8,7 @@ const os       = require("node:os");
 const {state} = require("./lib/state.js");
 const {color} = require("./lib/color.js");
 const {parseArgs}           = require("./lib/arg.js");
+const {parseInput}          = require("./lib/parser.js");
 const {readFile, writeFile} = require("./lib/io.js");
 
 const rl = readline.createInterface({input: proc.stdin, output: proc.stdout});
@@ -35,18 +36,15 @@ function main() {
 
 function rl_on_line(rowInput) {
     const input = rowInput.trimEnd();
-    if (input === "q") {
+    const inputDto = parseInput(input, state.curLine, state.lines.length);
+
+    if (inputDto.command === "q") {
         quit();
         return;
     }
 
-    // Append to the end of file
-    if (input === "A") {
-        state.lines.push("New line");
-    }
-
     // Write file
-    if (input === "w") {
+    if (inputDto.command === "w") {
         const content = state.lines.join(os.EOL);
         writeFile(state.filename, content, main);
         return;
